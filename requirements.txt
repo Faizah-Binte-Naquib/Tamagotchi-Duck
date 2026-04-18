@@ -1,0 +1,16 @@
+# GUI Framework
+PySide6>=6.6.0
+
+# LLM and NLP
+sentence-transformers>=2.2.0  # For embeddings (all-MiniLM-L6-v2)
+requests>=2.31.0              # For Ollama API calls
+
+# Vector Database
+chromadb>=0.4.0               # Embedded vector database for semantic search
+
+# Utilities
+numpy>=1.24.0
+
+# Optional: Alternative LLM backends (not required for Ollama)
+# llama-cpp-python>=0.2.0     # For local Llama (alternative to Ollama)
+# transformers>=4.35.0        # HuggingFace transformers (alternative backend)

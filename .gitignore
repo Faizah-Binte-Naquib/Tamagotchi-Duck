@@ -1,0 +1,34 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Save files
+duck_save.json
+duck_personality.json
+
+# Vector database
+chroma_db/
+*.sqlite3
+
+# LLM cache
+*.cache
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

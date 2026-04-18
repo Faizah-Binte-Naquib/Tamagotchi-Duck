@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "duckmind"
+version = "1.0.0"
+description = "DuckMind - AI-powered desktop companion with personality system using RAG and vector databases"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "DuckMind Project"}
+]
+keywords = [
+    "ai",
+    "llm",
+    "rag",
+    "vector-database",
+    "personality-system",
+    "game",
+    "desktop-application",
+    "virtual-pet",
+    "machine-learning"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Games/Entertainment",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "PySide6>=6.6.0",
+    "sentence-transformers>=2.2.0",
+    "chromadb>=0.4.0",
+    "numpy>=1.24.0",
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/tamagachi"
+Documentation = "https://github.com/yourusername/tamagachi#readme"
+Repository = "https://github.com/yourusername/tamagachi"
+
+[tool.setuptools]
+packages = ["llm", "memory", "personality", "chat", "config", "prompts"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
