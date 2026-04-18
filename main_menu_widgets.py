@@ -3,7 +3,7 @@ Main Menu Widgets - Duck/Egg box and Item menu widgets for the main menu
 """
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel
 from PySide6.QtCore import Qt, QPoint, QMimeData, QRect
-from PySide6.QtGui import QPainter, QColor, QBrush, QPen, QFont, QMouseEvent, QDrag, QPixmap
+from PySide6.QtGui import QPainter, QColor, QBrush, QPen, QFont, QMouseEvent, QDrag, QPixmap, QCursor
 from desktop_duck import DesktopDuckWindow
 import os
 
@@ -91,9 +91,6 @@ class DuckEggBox(QWidget):
         
         if (event.buttons() == Qt.LeftButton and 
             (event.position().toPoint() - self.drag_start_pos).manhattanLength() > 10):
-            # Store drop position before drag
-            self.drop_pos = event.globalPosition().toPoint()
-            
             # Start drag
             drag = QDrag(self)
             mime_data = QMimeData()
@@ -106,19 +103,18 @@ class DuckEggBox(QWidget):
             drag.setPixmap(pixmap)
             drag.setHotSpot(event.position().toPoint())
             
-            # Execute drag
-            result = drag.exec(Qt.MoveAction)
-            
-            # After drag completes, show duck on desktop
-            if result == Qt.MoveAction and hasattr(self, 'drop_pos'):
-                # Find parent window to call show_duck_on_desktop
-                parent = self.parent()
-                while parent:
-                    if hasattr(parent, 'show_duck_on_desktop'):
-                        parent.show_duck_on_desktop(self.drop_pos.x(), self.drop_pos.y())
-                        break
-                    parent = parent.parent()
-                delattr(self, 'drop_pos')
+            # Dropping on the Windows desktop (outside Qt) usually returns IgnoreAction,
+            # not MoveAction — still treat as "place duck" when the cursor left the menu.
+            result = drag.exec(Qt.MoveAction | Qt.CopyAction)
+            top = self.window()
+            cursor_pos = QCursor.pos()
+            menu_rect = top.frameGeometry() if top else self.frameGeometry()
+            released_outside_menu = not menu_rect.contains(cursor_pos)
+            placed = result in (Qt.MoveAction, Qt.CopyAction) or (
+                result == Qt.IgnoreAction and released_outside_menu
+            )
+            if placed and top and hasattr(top, "show_duck_on_desktop"):
+                top.show_duck_on_desktop(cursor_pos.x(), cursor_pos.y())
             
             delattr(self, 'drag_start_pos')
 

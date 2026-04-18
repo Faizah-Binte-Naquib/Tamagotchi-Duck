@@ -4,6 +4,14 @@
 
 > Portfolio angle: **ML / AI for interactive games** — NPC-style memory, evolving traits, and chat grounded in what actually happened in your session.
 
+### Main menu (the cozy HQ)
+
+This is where you peek at personality text, watch the little stat bars, grab pond/grass/house for the desktop, and **drag the duck out** onto your screen when they are hatched.
+
+![DuckMind main menu — personality, health, item menu, hatch / rename / sound](images/main_menu.png)
+
+*Tip:* click and drag the duck sprite **outside** this window to release them onto the desktop (Windows reports that as a “non-Qt” drop, which the game now handles on purpose).
+
 ---
 
 ## Why this repo exists (the fun version)
@@ -81,7 +89,8 @@ LLM details: **[SETUP_LLM.md](SETUP_LLM.md)** · Config: `config/llm_config.py`
 
 **Care loop:** feed, play, sleep, clean, medicine — classic tamagotchi brain, modern desktop hands.
 
-**Cozy sandbox:** drag **ponds / grass / houses** onto the desktop; the duck can wander and vibe with them.
+**Get them on your desktop:** once hatched, **drag the duck from the left box** and release on the desktop (not on the menu window).
+**Cozy sandbox:** drag **ponds / grass / houses** from the item row the same way; the duck can wander and vibe with them.
 
 **The brainy part:** click the duck to **chat**. Replies lean on **retrieved memories**, so the banter tracks your actual history together.
 

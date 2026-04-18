@@ -462,17 +462,6 @@ class TamagotchiWindow(QMainWindow):
             
             delattr(widget, 'drag_start_pos')
         
-        # Still create scene for compatibility but don't show it
-        self.scene = DesktopScene(self.game_logic)
-        
-        # Update display
-        self.update_display()
-        
-        # Setup interaction checking (for desktop duck with items)
-        self.interaction_timer = QTimer()
-        self.interaction_timer.timeout.connect(self.check_desktop_interactions)
-        self.interaction_timer.start(1000)  # Check every second
-        
     def create_stat_bar(self, name):
         """Create a stat progress bar with label - Stardew Valley style"""
         # Emoji mapping for stats
