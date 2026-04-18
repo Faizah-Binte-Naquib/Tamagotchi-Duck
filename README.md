@@ -16,9 +16,9 @@ This is where you peek at personality text, watch the little stat bars, grab pon
 
 Screen capture from **Recording 2026-04-18 154305** — the duck wandering on top of your real desktop.
 
-<video src="videos/duck_desktop_walking.mp4" controls muted playsinline width="720"></video>
+![Duck walking on the Windows desktop (GIF preview)](images/duck_desktop_walking.gif)
 
-If the player does not show (some Markdown viewers strip `<video>`), open [`videos/duck_desktop_walking.mp4`](videos/duck_desktop_walking.mp4) directly or view the file on GitHub in the repo browser.
+Full-quality clip (with sound if your capture had audio): [`videos/duck_desktop_walking.mp4`](videos/duck_desktop_walking.mp4)
 
 ---
 
