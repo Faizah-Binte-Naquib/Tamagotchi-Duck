@@ -72,7 +72,7 @@ Deep dive: **[ARCHITECTURE.md](ARCHITECTURE.md)** · Vector notes: **[memory/REA
 **You need:** Python 3.8+ · [Ollama](https://ollama.ai) for the AI bits (the pet still runs without it — just quieter upstairs).
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Faizah-Binte-Naquib/Tamagotchi-Duck.git
 cd tamagachi
 python -m venv venv
 ```
