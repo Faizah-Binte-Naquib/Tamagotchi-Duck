@@ -1,59 +1,53 @@
-# DuckMind — your desktop duck remembers everything (in a cozy way)
+# DuckMind
 
-**A tiny life-sim meets cozy desktop pet** — feed them, tuck them in, drop a pond on your screen, and watch them waddle through your day. Under the cute pixels lives a serious ML stack: **semantic memory (RAG)**, **embeddings + ChromaDB**, and **local LLM personality** so your duck does not just *look* alive — they **learn how you play**.
+I wanted a desktop pet that actually felt like company, not a spreadsheet with a sprite. DuckMind is a little tamagotchi-style duck you keep on your PC: you feed them, drag furniture onto the screen, and if you wire up the LLM stuff they can chat with you using memories of what you actually did together.
 
-> Portfolio angle: **ML / AI for interactive games** — NPC-style memory, evolving traits, and chat grounded in what actually happened in your session.
+Under the cozy UI it is also my playground for **RAG**, **ChromaDB**, **sentence-transformers**, and a **local model via Ollama**. If you care about ML in games, that combo is the point: a character that can lean on retrieval instead of only whatever fits in the prompt window.
 
-### Main menu (the cozy HQ)
+### Main menu
 
-This is where you peek at personality text, watch the little stat bars, grab pond/grass/house for the desktop, and **drag the duck out** onto your screen when they are hatched.
+This is the home base: personality blurb, stat bars, the item row, and the duck in the box. Once they have hatched, you drag them out onto the desktop from there.
 
-![DuckMind main menu — personality, health, item menu, hatch / rename / sound](images/main_menu.png)
+![DuckMind main menu: personality, health, items, hatch / rename / sound](images/main_menu.png)
 
-*Tip:* click and drag the duck sprite **outside** this window to release them onto the desktop (Windows reports that as a “non-Qt” drop, which the game now handles on purpose).
+**Heads up:** drag the duck **out of this window** and let go on the wallpaper. On Windows, dropping on the empty desktop does not always look like a normal Qt drop, so the app treats “I dragged outside the menu” as good enough.
 
-### Desktop walkabout
+### On the desktop
 
-Screen capture from **Recording 2026-04-18 154305** — the duck wandering on top of your real desktop.
+Same recording as before, just as a GIF so GitHub shows it inline.
 
-![Duck walking on the Windows desktop (GIF preview)](images/duck_desktop_walking.gif)
+![Duck walking on the Windows desktop](images/duck_desktop_walking.gif)
 
-Full-quality clip (with sound if your capture had audio): [`videos/duck_desktop_walking.mp4`](videos/duck_desktop_walking.mp4)
-
----
-
-## Why this repo exists (the fun version)
-
-You are not “running a demo.” You are **onboarding a duck**.
-
-- They get hungry, sleepy, silly, and sometimes dramatic (same).
-- You place **ponds, grass, houses** — little set-dressing on your desktop.
-- They **remember** the vibe of your care style and bring it back in chat.
-- The whole thing is wrapped in a **Stardew-flavored** PySide6 UI because comfort is a feature.
-
-If you are here for **game-feel + ML engineering**, you are in the right pond.
+Sharper copy if you want it: [`videos/duck_desktop_walking.mp4`](videos/duck_desktop_walking.mp4)
 
 ---
 
-## ML in games: what this project actually proves
+## What I was going for
 
-Hiring managers for **ML roles in game dev** often want to see *systems*, not slides. DuckMind is a small, end-to-end slice of “**character AI with memory**”:
-
-| Game-adjacent idea | How it shows up here |
-| ------------------ | -------------------- |
-| **Believable companion / NPC** | Desktop pet with moods, stats, and time-based decay |
-| **Long-term memory** | ChromaDB + embeddings store interaction text as **retrievable** context |
-| **Grounded dialogue** | **RAG** pulls relevant memories before the LLM answers |
-| **Evolving persona** | Personality traits drift from observed play patterns (LLM-assisted) |
-| **Safety / focus** | Topic filtering keeps chat roughly on-theme |
-
-**Stack (high level):** Python · PySide6 · **ChromaDB** · **sentence-transformers** (`all-MiniLM-L6-v2`) · **Ollama** (local LLM, e.g. `llama3.1:8b`)
-
-For a recruiter-ready writeup, see **[PROJECT_DESCRIPTION.md](PROJECT_DESCRIPTION.md)**.
+- A pet that gets hungry, tired, dramatic, the usual.
+- Little props (pond, grass, house) you place yourself.
+- Chat that can reference how you have been treating them, not generic filler, when the stack is running.
+- A warm, Stardew-ish PySide6 look because I like software that does not feel like a bank portal.
 
 ---
 
-## Architecture (one glance)
+## Why I think it matters for game-ish ML jobs
+
+Recruiters skim for **systems**. This repo is one vertical slice: companion loop on screen, observer-style logging, embeddings in a vector DB, retrieval before generation, personality that can shift from what the game saw. Rough map:
+
+| Idea | Where it lives |
+| ---- | -------------- |
+| Companion with stats and decay | Core sim + desktop window |
+| Memory you can search | ChromaDB + `sentence-transformers` (`all-MiniLM-L6-v2`) |
+| Dialogue that uses memory | RAG into prompts, then Ollama |
+| Persona that can drift | Personality pipeline + LLM |
+| Chat staying on-topic-ish | Topic filter |
+
+Stack in plain text: Python, PySide6, ChromaDB, sentence-transformers, Ollama (I used `llama3.1:8b` in docs). If you need something copy-pasteable for applications, **[PROJECT_DESCRIPTION.md](PROJECT_DESCRIPTION.md)** is the long version I wrote for that.
+
+---
+
+## Flow (big picture)
 
 ```
 You care for the duck → Observer logs events → Memories + embeddings (ChromaDB)
@@ -63,13 +57,13 @@ You care for the duck → Observer logs events → Memories + embeddings (Chroma
            Personality + chat use LLM with that context (Ollama)
 ```
 
-Deep dive: **[ARCHITECTURE.md](ARCHITECTURE.md)** · Vector notes: **[memory/README.md](memory/README.md)**
+More detail: **[ARCHITECTURE.md](ARCHITECTURE.md)** and **[memory/README.md](memory/README.md)**.
 
 ---
 
-## Quick start (get the duck on screen)
+## Run it
 
-**You need:** Python 3.8+ · [Ollama](https://ollama.ai) for the AI bits (the pet still runs without it — just quieter upstairs).
+You need Python 3.8+ and, for the AI side, [Ollama](https://ollama.ai). The toy still launches without Ollama; you just do not get the fancy chat/personality bits.
 
 ```bash
 git clone https://github.com/Faizah-Binte-Naquib/Tamagotchi-Duck.git
@@ -77,11 +71,7 @@ cd tamagachi
 python -m venv venv
 ```
 
-**Activate**
-
-- Windows (PowerShell): `.\venv\Scripts\Activate.ps1`
-- Windows (cmd): `venv\Scripts\activate.bat`
-- macOS / Linux: `source venv/bin/activate`
+Activate the venv (Windows PowerShell: `.\venv\Scripts\Activate.ps1`, cmd: `venv\Scripts\activate.bat`, macOS/Linux: `source venv/bin/activate`), then:
 
 ```bash
 pip install -r requirements.txt
@@ -89,24 +79,19 @@ ollama pull llama3.1:8b
 python main.py
 ```
 
-LLM details: **[SETUP_LLM.md](SETUP_LLM.md)** · Config: `config/llm_config.py`
+Model and paths: **[SETUP_LLM.md](SETUP_LLM.md)**, `config/llm_config.py`.
 
 ---
 
-## How to play (controls with personality)
+## Playing
 
-**Care loop:** feed, play, sleep, clean, medicine — classic tamagotchi brain, modern desktop hands.
+Feed, play, sleep, clean, medicine when they need it. After hatch, **drag the duck from the left box** to the desktop (not back onto the menu). Drag pond / grass / house from the row the same way. **Click the duck on the desktop** to open chat when everything is connected.
 
-**Get them on your desktop:** once hatched, **drag the duck from the left box** and release on the desktop (not on the menu window).
-**Cozy sandbox:** drag **ponds / grass / houses** from the item row the same way; the duck can wander and vibe with them.
-
-**The brainy part:** click the duck to **chat**. Replies lean on **retrieved memories**, so the banter tracks your actual history together.
-
-Auto-save is friendly (about every 30 seconds). Your duck appreciates consistency.
+Autosave runs about every thirty seconds so you are not punished for closing the app on impulse.
 
 ---
 
-## Repo layout (where the magic files live)
+## Where the code hangs out
 
 ```
 tamagachi/
@@ -124,22 +109,16 @@ tamagachi/
 
 ---
 
-## Performance (honest numbers)
+## Rough timings (my machine, YMMV)
 
-Rough ballparks on a normal laptop: embeddings **~10–50 ms** per memory; semantic search **~50–200 ms** at ~1k memories; LLM replies **~1–5 s** depending on model and hardware. Plan for **8 GB+ RAM** if you want the LLM comfortable.
+Embeddings on CPU land around **10 to 50 ms** per memory; search over on the order of **1k memories** has been **50 to 200 ms** for me; LLM turns are usually **1 to 5 s** depending on model size. Give the machine **8 GB+ RAM** if you do not want the model to fight Chrome.
 
 ---
 
-## License & credits
+## License and thanks
 
 **License:** [LICENSE](LICENSE) (MIT)
 
-**Built with:** [PySide6](https://www.qt.io/qt-for-python) · [Ollama](https://ollama.ai) · [ChromaDB](https://www.trychroma.com/) · [sentence-transformers](https://www.sbert.net/)
+**Libraries:** [PySide6](https://www.qt.io/qt-for-python), [Ollama](https://ollama.ai), [ChromaDB](https://www.trychroma.com/), [sentence-transformers](https://www.sbert.net/)
 
----
-
-## One-line pitch for your portfolio
-
-**DuckMind** — a cozy desktop pet sim where **RAG-backed memory** and a **local LLM** turn care gameplay into an evolving character: *game loop in the front, ML systems in the back, duck in the middle.*
-
-If you open an issue saying hi, the duck cannot read GitHub — but the human author will, and they will be happy you visited.
+If you clone this and something breaks, open an issue. I cannot promise the duck will apologize on my behalf, but I will read it.
